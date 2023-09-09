@@ -1,0 +1,33 @@
+package unam.diplomado.pixup.usuarioservice.service;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import unam.diplomado.pixup.usuarioservice.domain.Estado;
+import unam.diplomado.pixup.usuarioservice.respository.EstadoRepository;
+
+
+@Service
+public class EstadoServiceimpl implements EstadoService{
+
+	@Autowired
+	private  EstadoRepository estadoRepository;
+	@Override
+	public Estado actualizarEstado(String id, Estado estado) {
+		
+		Optional<Estado> estadoExistente= estadoRepository.findById(id);
+		
+		if(estadoExistente.isPresent()) {
+			Estado estadoActualizar= estadoExistente.get();
+			estadoActualizar.setNombre(estado.getNombre());
+			estadoRepository.save(estadoActualizar);
+			return estadoActualizar;
+			
+		}
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
